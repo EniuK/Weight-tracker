@@ -12,3 +12,8 @@ import {
   WeightData,
 } from "../../types/CustomTypes.tsx";
 
+const AppContainer: React.FC = () => {
+  const [weights, setWeights] = useState<Weight[]>([]);
+  const [tick, setTick] = useState<boolean>(true);
+  const [unit, setUnit] = useState<Unit>("kg");
+
