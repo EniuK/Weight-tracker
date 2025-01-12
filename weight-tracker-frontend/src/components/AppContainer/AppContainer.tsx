@@ -38,3 +38,7 @@ const AppContainer: React.FC = () => {
   ): void => {
     setUnit(event.target.checked ? "LBs" : "kg");
   };
+  useEffect(() => {
+    getWeights();
+  }, [tick]);
+
