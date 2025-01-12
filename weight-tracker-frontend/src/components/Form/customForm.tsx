@@ -57,3 +57,42 @@ const CustomForm: React.FC<CustomFormProps> = ({ handleTick, unit }) => {
     setWeightError(null);
     setWeight(inputValue);
   };
+
+  const handlePost = async ({ chosenDate, chosenWeight }: HandlePostParams) => {
+    const currentDate = dayjs();
+    const chosenDateChecker = dayjs(chosenDate);
+
+    if (!chosenWeight) {
+      setWeightError("Please provide a weight value");
+      return;
+    }
+
+    if (currentDate.isBefore(chosenDateChecker, "day")) {
+      setDateError("Date is in the future, please set a valid date");
+      return;
+    } else {
+      setDateError("");
+    }
+
+    const convertedWeight =
+      unit === "LBs"
+        ? (parseFloat(chosenWeight) / 2.20462).toFixed(1)
+        : chosenWeight;
+
+    try {
+      await axios
+        .post(`http://localhost:3005/weight_main_table`, {
+          date: chosenDate,
+          weight: convertedWeight,
+        })
+        .then((res) => {
+          console.log(res);
+          setDateError("");
+          setWeightError("");
+          handleTick();
+        });
+    } catch (err) {
+      console.error(err);
+      setDateError("Date already exists in the system");
+    }
+  };
