@@ -17,3 +17,7 @@ const AppContainer: React.FC = () => {
   const [tick, setTick] = useState<boolean>(true);
   const [unit, setUnit] = useState<Unit>("kg");
 
+  const sortedWeightsByDate: Weight[] = weights.sort(
+    (a: Weight, b: Weight) =>
+      new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
