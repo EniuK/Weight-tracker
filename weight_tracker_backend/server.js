@@ -32,3 +32,11 @@ pool.connect((err, connection) => {
   console.log(`connected to database successfully`);
 });
 
+app.get("/weight_main_table", (req, res) => {
+  const sql = "SELECT * FROM weight_main_table";
+  pool.query(sql, (err, result) => {
+    if (err) return res.json(err);
+    return res.status(200).json(result.rows);
+  });
+});
+
