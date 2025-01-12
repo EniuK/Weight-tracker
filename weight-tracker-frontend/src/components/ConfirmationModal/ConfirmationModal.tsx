@@ -8,3 +8,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import "./confirmationModal.css";
 import { ConfirmationModalProps } from "../../types/CustomTypes.tsx"; // Import typów
 
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+  onConfirm,
+  checkDateExists,
+  newWeight,
+  newDate,
+  setWeight,
+  setDate,
+}) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
