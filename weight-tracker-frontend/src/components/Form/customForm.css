@@ -1,0 +1,58 @@
+.customform-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.customform-datepicker {
+  color: aliceblue;
+}
+
+.customform-form {
+  min-width: 30%;
+}
+
+.customForm-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+  .customform-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .customform-form,
+  .customform-datepicker {
+    flex: 1 1 48%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .customform-datepicker {
+    width: 100%;
+    color: black;
+  }
+
+  .customForm-button-container {
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .customform-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .customform-form div:last-child {
+    align-self: flex-start;
+  }
+}
