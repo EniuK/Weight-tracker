@@ -21,3 +21,7 @@ const AppContainer: React.FC = () => {
     (a: Weight, b: Weight) =>
       new Date(b.date).getTime() - new Date(a.date).getTime()
   );
+  const handleTick: HandleTick = (): void => {
+    setTick((prevTick) => !prevTick);
+  };
+
