@@ -19,3 +19,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   const [open, setOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
+  const handleClickOpen = (): void => {
+    setError("");
+    setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setError("");
+    setOpen(false);
+  };
+
