@@ -132,3 +132,100 @@ const WeightList: React.FC<WeightListProps> = ({
       console.error("Error saving changes:", err);
     }
   };
+
+  return (
+    <div className={"weightlist-container"}>
+      {handleEdit ? (
+        <>
+          <div className={"weightlist-weight-reading"}>
+            <FormControl fullWidth>
+              <Input
+                value={newWeight}
+                onChange={handleWeightChange}
+                type="text"
+                placeholder="Enter your weight"
+                inputProps={{
+                  inputMode: "decimal",
+                  step: "0.1",
+                }}
+                sx={{
+                  fontSize: "16px",
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  "&:hover": {
+                    borderColor: "#1976d2",
+                  },
+                  "&:focus-within": {
+                    borderColor: "#1976d2",
+                    boxShadow: "0 0 0 2px rgba(25, 118, 210, 0.2)",
+                  },
+                }}
+              />
+              {weightError && (
+                <FormHelperText error>{weightError}</FormHelperText>
+              )}
+            </FormControl>
+          </div>
+          <div className={"weightlist-date-reading"}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <div className={"customform-datepicker"}>
+                <DatePicker
+                  label="Select a date"
+                  views={["year", "month", "day"]}
+                  value={dayjs(newDate)}
+                  onChange={handleDateChange}
+                  format="YYYY-MM-DD"
+                />
+                {dateError && (
+                  <p style={{ color: "red", marginTop: "5px" }}>{dateError}</p>
+                )}
+              </div>
+            </LocalizationProvider>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={"weightlist-weight-reading"}>
+            <div className="weightlist-value-holder">
+              {unit === "LBs"
+                ? (Number(weight) * 2.20462).toFixed(1)
+                : Number(weight).toFixed(1)}{" "}
+            </div>
+            <div className="weightlist-unit-holder">{unit}</div>
+          </div>
+          <div className={"weightlist-date-reading"}>{date}</div>
+        </>
+      )}
+
+      <div className={"weightlist-button-container"}>
+        {handleEdit && (
+          <ConfirmationModal
+            onConfirm={saveChanges}
+            checkDateExists={checkDateExists}
+            newWeight={weight}
+            newDate={newDate}
+            setWeight={setWeight}
+            setDate={setDate}
+          />
+        )}
+
+        <img
+          src="/icons/edit.png"
+          alt="delete"
+          style={{ width: "30px", height: "30px", marginRight: "10px" }}
+          onClick={() => setHandleEdit(!handleEdit)}
+        />
+
+        <img
+          src="/icons/delete.png"
+          alt="delete"
+          style={{ width: "30px", height: "30px" }}
+          onClick={() => deleteRecord(date)}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default WeightList;
