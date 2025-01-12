@@ -48,3 +48,44 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     }
   };
 
+  return (
+    <React.Fragment>
+      <img
+        src="/icons/save.png"
+        alt="delete"
+        style={{ width: "30px", height: "30px", marginRight: "10px" }}
+        onClick={handleClickOpen}
+        className="dialog-icon-save"
+      />
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to overwrite the existing data with:
+            <br />
+            <b>Weight:</b> {newWeight}
+            <br />
+            <b>Date:</b> {newDate}?
+          </DialogContentText>
+          {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="error">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirm} color="success" autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </React.Fragment>
+  );
+};
+
+export default ConfirmationModal;
