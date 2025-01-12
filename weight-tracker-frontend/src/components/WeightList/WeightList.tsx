@@ -56,3 +56,20 @@ const WeightList: React.FC<WeightListProps> = ({
     }
   };
 
+  const handleDateChange = (newValue: Dayjs | null) => {
+    const formattedDate = newValue?.format("YYYY-MM-DD");
+    const currentDate = dayjs();
+
+    if (!newValue || !formattedDate) {
+      setDateError("Date is required");
+      return;
+    }
+
+    if (currentDate.isBefore(dayjs(formattedDate), "day")) {
+      setDateError("Date cannot be in the future");
+      return;
+    }
+
+    setDateError("");
+    setNewDate(formattedDate);
+  };
