@@ -41,3 +41,18 @@ const WeightList: React.FC<WeightListProps> = ({
       });
   };
 
+  const checkDateExists = async (formattedDate: string): Promise<boolean> => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3005/weight_main_table/${formattedDate}`
+      );
+      return response.status === 200;
+    } catch (err: any) {
+      if (err.response && err.response.status === 404) {
+        return false;
+      }
+      console.error("Error checking date existence:", err);
+      return false;
+    }
+  };
+
