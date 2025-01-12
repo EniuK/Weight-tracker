@@ -5,3 +5,10 @@ import { FormControlLabel, Switch } from "@mui/material";
 import axios from "axios";
 import "./appContainer.css";
 
+import {
+  Weight,
+  Unit,
+  HandleTick,
+  WeightData,
+} from "../../types/CustomTypes.tsx";
+
