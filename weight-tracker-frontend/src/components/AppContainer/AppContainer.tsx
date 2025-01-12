@@ -33,3 +33,8 @@ const AppContainer: React.FC = () => {
         setWeights(res.data);
       });
   };
+  const handleUnitChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setUnit(event.target.checked ? "LBs" : "kg");
+  };
