@@ -88,6 +88,7 @@ app.post("/weight_main_table", async (req, res) => {
       .json({ error: "Database error", details: err.message });
   }
 });
+
 app.put("/weight_main_table/:date", async (req, res) => {
   const { weight, date } = req.body;
   const originalDate = req.params.date;
@@ -144,6 +145,7 @@ app.put("/weight_main_table/:date", async (req, res) => {
       .json({ error: "Database error", details: err.message });
   }
 });
+
 app.delete("/weight_main_table/:date", (req, res) => {
   const { date } = req.params;
 
