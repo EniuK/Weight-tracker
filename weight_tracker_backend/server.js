@@ -144,3 +144,35 @@ app.put("/weight_main_table/:date", async (req, res) => {
       .json({ error: "Database error", details: err.message });
   }
 });
+app.delete("/weight_main_table/:date", (req, res) => {
+  const { date } = req.params;
+
+  if (!date) {
+    return res.status(400).json({ error: "Date is required in URL parameter" });
+  }
+
+  const sql = `
+    DELETE FROM weight_main_table 
+    WHERE date = $1
+    RETURNING *`;
+
+  pool.query(sql, [date], (err, result) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res
+        .status(500)
+        .json({ error: "Database error", details: err.message });
+    }
+
+    if (result.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ error: "No entry found for the given date" });
+    }
+
+    return res.status(200).json({
+      message: "Weight from this date has been deleted",
+      deletedRecord: result.rows[0],
+    });
+  });
+});
