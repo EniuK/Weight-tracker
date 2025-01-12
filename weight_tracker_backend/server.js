@@ -88,3 +88,59 @@ app.post("/weight_main_table", async (req, res) => {
       .json({ error: "Database error", details: err.message });
   }
 });
+app.put("/weight_main_table/:date", async (req, res) => {
+  const { weight, date } = req.body;
+  const originalDate = req.params.date;
+
+  if (!originalDate) {
+    return res.status(400).json({ error: "Date is required in URL parameter" });
+  }
+
+  if (!weight) {
+    return res
+      .status(400)
+      .json({ error: "Weight is required in request body" });
+  }
+
+  try {
+    const checkDateSql = `
+      SELECT * FROM weight_main_table 
+      WHERE date = $1
+    `;
+    const checkDateResult = await pool.query(checkDateSql, [date]);
+
+    if (checkDateResult.rowCount > 0 && date !== originalDate) {
+      return res
+        .status(409)
+        .json({ error: "Date already exists in the database" });
+    }
+
+    const updateSql = `
+      UPDATE weight_main_table 
+      SET weight = $1, date = $2
+      WHERE date = $3
+      RETURNING *
+    `;
+    const updateResult = await pool.query(updateSql, [
+      weight,
+      date,
+      originalDate,
+    ]);
+
+    if (updateResult.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ error: "No entry found for the original date" });
+    }
+
+    return res.status(200).json({
+      message: "Weight updated successfully",
+      updatedRecord: updateResult.rows[0],
+    });
+  } catch (err) {
+    console.error("Database error:", err);
+    return res
+      .status(500)
+      .json({ error: "Database error", details: err.message });
+  }
+});
