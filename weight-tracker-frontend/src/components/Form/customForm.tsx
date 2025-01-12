@@ -96,3 +96,109 @@ const CustomForm: React.FC<CustomFormProps> = ({ handleTick, unit }) => {
       setDateError("Date already exists in the system");
     }
   };
+
+  return (
+    <>
+      <div className={"customform-container"}>
+        <div className="customform-form">
+          <FormControl fullWidth>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "10px",
+              }}
+            >
+              <Input
+                value={weight}
+                onChange={handleWeightChange}
+                type="text"
+                placeholder={`Enter your weight in ${unit}`}
+                inputProps={{
+                  inputMode: "decimal",
+                  step: "0.1",
+                }}
+                sx={{
+                  fontSize: "16px",
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  flexGrow: 1,
+                  height: "75px",
+                  "&:hover": {
+                    borderColor: "#1976d2",
+                  },
+                  "&:focus-within": {
+                    borderColor: "#1976d2",
+                    boxShadow: "0 0 0 2px rgba(25, 118, 210, 0.2)",
+                  },
+                }}
+              />
+            </div>
+            {weightError ? (
+              <FormHelperText error>{weightError}</FormHelperText>
+            ) : (
+              <FormHelperText
+                style={{
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                  color: "#333",
+                }}
+              >
+                {unit}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </div>
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <div
+            className={"customform-datepicker"}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "100%",
+              minWidth: "200px",
+            }}
+          >
+            <DatePicker
+              label="Select a date"
+              views={["year", "month", "day"]}
+              value={dayjs(date)}
+              onChange={handleDateChange}
+              format="YYYY-MM-DD"
+              sx={{
+                width: "100%",
+                "& .MuiInputBase-root": {
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                },
+              }}
+            />
+            {dateError && <FormHelperText error>{dateError}</FormHelperText>}
+          </div>
+        </LocalizationProvider>
+
+        <div className="customForm-button-container">
+          <Button
+            variant={"contained"}
+            color="success"
+            style={{ height: "55px" }}
+            onClick={() =>
+              handlePost({ chosenDate: date, chosenWeight: weight })
+            }
+          >
+            <b>ADD WEIGHT</b>
+          </Button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default CustomForm;
