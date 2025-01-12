@@ -96,3 +96,39 @@ const WeightList: React.FC<WeightListProps> = ({
     setWeightError("");
     setNewWeight(inputValue);
   };
+
+  const saveChanges = async () => {
+    if (!newWeight) {
+      setWeightError("Weight is required");
+      return;
+    }
+
+    if (!newDate) {
+      setDateError("Date is required");
+      return;
+    }
+
+    try {
+      const numericNewWeight =
+        typeof newWeight === "string" ? parseFloat(newWeight) : newWeight;
+
+      const adjustedWeight =
+        unit === "LBs" ? numericNewWeight / 2.20462 : numericNewWeight;
+
+      const response = await axios.put(
+        `http://localhost:3005/weight_main_table/${weightData.date}`,
+        {
+          weight: adjustedWeight.toFixed(1),
+          date: newDate,
+        }
+      );
+      handleTick();
+      console.log("Changes saved successfully:", response.data);
+
+      setDate(newDate);
+      setWeight(adjustedWeight.toFixed(1));
+      setHandleEdit(false);
+    } catch (err) {
+      console.error("Error saving changes:", err);
+    }
+  };
