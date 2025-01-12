@@ -29,3 +29,22 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     setOpen(false);
   };
 
+  const handleConfirm = async (): Promise<void> => {
+    try {
+      const dateExists = await checkDateExists(newDate);
+      console.log(await checkDateExists(newDate));
+      if (dateExists) {
+        setError("The selected date already exists in the database. i chuj");
+        return;
+      }
+
+      onConfirm();
+      setWeight(newWeight);
+      setDate(newDate);
+      handleClose();
+    } catch (err) {
+      console.error("Error confirming changes:", err);
+      setError("An unexpected error occurred. Please try again.");
+    }
+  };
+
