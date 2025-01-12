@@ -69,3 +69,20 @@ const AppContainer: React.FC = () => {
           label={` ${unit}`}
         />
       </div>
+
+      {sortedWeightsByDate?.map((e: Weight) => {
+        return (
+          <div key={e.date}>
+            <WeightList
+              weightData={e as WeightData}
+              handleTick={handleTick}
+              unit={unit}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default AppContainer;
