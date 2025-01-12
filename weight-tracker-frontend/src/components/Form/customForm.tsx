@@ -20,3 +20,19 @@ const CustomForm: React.FC<CustomFormProps> = ({ handleTick, unit }) => {
   const [weight, setWeight] = useState<string>("");
   const [weightError, setWeightError] = useState<string | null>(null);
 
+  const handleDateChange = (newValue: any) => {
+    const formattedDate = newValue?.format("YYYY-MM-DD");
+    const currentDate = dayjs();
+
+    if (!newValue) {
+      setDateError("Date cannot be empty");
+      return;
+    }
+
+    if (formattedDate && currentDate.isBefore(dayjs(formattedDate), "day")) {
+      setDateError("Date is in the future, please set a valid date");
+    } else {
+      setDateError("");
+      setDate(formattedDate);
+    }
+  };
