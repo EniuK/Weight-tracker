@@ -1,0 +1,87 @@
+.weightlist-container {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  background-color: rgba(118, 238, 94, 0.8);
+  border-radius: 7px;
+  padding: 5px 10px;
+
+  height: 70px;
+}
+.weightlist-container:hover {
+  background-color: rgba(78, 255, 42, 0.8);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.weightlist-weight-reading {
+  color: black;
+  width: 30%;
+  overflow: hidden;
+  text-align: start;
+}
+
+.weightlist-date-reading {
+  color: black;
+}
+
+.weightlist-button-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.weightlist-weight-reading {
+  display: flex;
+}
+
+.weightlist-value-holder {
+  margin-right: 5px;
+  width: 100px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.weightlist-value-holder::-webkit-scrollbar {
+  height: 8px;
+}
+
+.weightlist-value-holder::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.weightlist-value-holder::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.weightlist-value-holder::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.weightlist-value-holder {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .weightlist-container {
+    height: 200px;
+    flex-direction: column;
+  }
+  .weightlist-value-holder {
+    margin-right: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .weightlist-weight-reading {
+    margin-right: 20px;
+  }
+}
