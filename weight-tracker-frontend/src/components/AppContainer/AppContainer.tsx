@@ -21,7 +21,15 @@ const AppContainer: React.FC = () => {
     (a: Weight, b: Weight) =>
       new Date(b.date).getTime() - new Date(a.date).getTime()
   );
+
   const handleTick: HandleTick = (): void => {
     setTick((prevTick) => !prevTick);
   };
 
+  const getWeights = (): void => {
+    axios
+      .get<Weight[]>("http://localhost:3005/weight_main_table")
+      .then((res) => {
+        setWeights(res.data);
+      });
+  };
