@@ -25,3 +25,19 @@ const WeightList: React.FC<WeightListProps> = ({
   const [dateError, setDateError] = useState<string>("");
   const [weightError, setWeightError] = useState<string>("");
 
+  const deleteRecord = (date: string) => {
+    console.log("Deleting record with date:", date);
+    handleTick();
+    axios
+      .delete(`http://localhost:3005/weight_main_table/${date}`)
+      .then((res) => {
+        console.log("Record deleted successfully:", res.data);
+      })
+      .catch((err) => {
+        console.error(
+          "Error while deleting record:",
+          err.response?.data || err
+        );
+      });
+  };
+
