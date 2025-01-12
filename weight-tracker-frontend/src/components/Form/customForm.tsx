@@ -14,3 +14,9 @@ import {
   HandlePostParams,
 } from "../../types/CustomTypes.tsx";
 
+const CustomForm: React.FC<CustomFormProps> = ({ handleTick, unit }) => {
+  const [date, setDate] = useState<string>("2025-01-01");
+  const [dateError, setDateError] = useState<string>("");
+  const [weight, setWeight] = useState<string>("");
+  const [weightError, setWeightError] = useState<string | null>(null);
+
