@@ -73,3 +73,26 @@ const WeightList: React.FC<WeightListProps> = ({
     setDateError("");
     setNewDate(formattedDate);
   };
+
+  const handleWeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+
+    if (!inputValue) {
+      setWeightError("Weight is required");
+    }
+
+    if (!/^\d*\.?\d{0,1}$/.test(inputValue)) {
+      setWeightError("Weight must be a number with up to 1 decimal place");
+      return;
+    }
+
+    const numericValue = parseFloat(inputValue);
+
+    if (numericValue < 0) {
+      setWeightError("Weight cannot be negative");
+      return;
+    }
+
+    setWeightError("");
+    setNewWeight(inputValue);
+  };
