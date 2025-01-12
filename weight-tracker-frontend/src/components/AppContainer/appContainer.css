@@ -1,0 +1,19 @@
+.app-main-container {
+  background-color: #eff1f2;
+
+  min-width: 700px;
+  padding: 40px;
+  border-radius: 0.75rem;
+  margin: 40px;
+  font-size: 20px;
+
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 800px) {
+  .app-main-container {
+    min-width: 365px;
+    max-width: 800px;
+    padding: 5px;
+  }
+}
