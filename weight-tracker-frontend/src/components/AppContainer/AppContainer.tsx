@@ -38,7 +38,34 @@ const AppContainer: React.FC = () => {
   ): void => {
     setUnit(event.target.checked ? "LBs" : "kg");
   };
+
   useEffect(() => {
     getWeights();
   }, [tick]);
 
+  return (
+    <div className={"app-main-container"}>
+      <div>
+        <h1>Weight tracker app</h1>
+      </div>
+      <CustomForm handleTick={handleTick} unit={unit} />
+
+      <div
+        style={{
+          margin: "20px 0",
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <FormControlLabel
+          control={
+            <Switch
+              checked={unit === "LBs"}
+              onChange={handleUnitChange}
+              color="primary"
+            />
+          }
+          label={` ${unit}`}
+        />
+      </div>
