@@ -36,3 +36,24 @@ const CustomForm: React.FC<CustomFormProps> = ({ handleTick, unit }) => {
       setDate(formattedDate);
     }
   };
+
+  const handleWeightChange = (event: HandleWeightChangeEvent) => {
+    const inputValue = event.target.value;
+
+    if (!/^\d*\.?\d{0,1}$/.test(inputValue)) {
+      setWeightError(
+        "Value must be a positive number with up to 1 decimal place"
+      );
+      return;
+    }
+
+    const numericValue = parseFloat(inputValue);
+
+    if (numericValue < 0) {
+      setWeightError("Please provide a positive value");
+      return;
+    }
+
+    setWeightError(null);
+    setWeight(inputValue);
+  };
